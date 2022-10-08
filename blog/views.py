@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth import get_user_model
 from django.utils import timezone
 from blog.models import Post
+from django.shortcuts import render, get_object_or_404
 
 # Create your views here.
 user_model = get_user_model()
@@ -25,3 +26,8 @@ def author_details(author):
         name = f"{author.username}"
 
     return name
+
+
+def post_details(request, slug):
+    post = get_object_or_404(Post , slug = slug)
+    return render(request , "blog/post-details.html", {"post": post} )
