@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load blog_extras %}
+{% block content %}
+<h4>{{ title }}</h4>
+<ul>
+{% for post in posts %}
+    <li><a href="{% url "blog-post-detail" post.slug %}">{{ post.title }}</a></li>
+{% endfor %}
+</ul>
+
+{% endblock %}
+

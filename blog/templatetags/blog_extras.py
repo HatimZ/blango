@@ -4,7 +4,7 @@ from django import template
 from django.utils.html import format_html
 from django.utils.html import escape
 from django.utils.safestring import mark_safe
-
+from blog.models import Post
 register = template.Library()
 
 user_model = get_user_model()
@@ -51,5 +51,13 @@ def col(extra_classes = ""):
 @register.simple_tag
 def endcol():
     return format_html("</div>")
+
+@register.inclusion_tag("blog/post-list.html")
+def recent_posts(post):
+    recent = Post.objects.exclude(pk=post.pk)[:2]
+    return {"posts" : recent , "title" : "Recent Posts"}
+
+
+
 
     
